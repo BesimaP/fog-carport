@@ -1,12 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
     <meta charset="UTF-8">
-    <title>Layout</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title}">Fog Carport</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-<!-- fælles menu -->
+<!-- Shared header: used on all pages -->
+<header th:fragment="header">
+    <a th:href="@{/}">Fog</a>
+    <nav>
+        <a th:href="@{/}">Bestil carport</a>
+        <a th:href="@{/my-orders}">Mine ordrer</a>
+        <a th:href="@{/login}">Log ind</a>
+    </nav>
+</header>
+
+<!-- Shared footer: used on all pages -->
+<footer th:fragment="footer">
+    <p>Johannes Fog A/S</p>
+</footer>
 
 </body>
 </html>
