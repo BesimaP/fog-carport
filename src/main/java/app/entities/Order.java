@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Order {
     private int orderId;
-    private int userId;
+    private User user;
     private int width;
     private int length;
     private int height;
@@ -17,11 +17,11 @@ public class Order {
     private LocalDateTime createdAt;
 
     // Used when reading an order from the database
-    public Order(int orderId, int userId, int width, int length, int height,
+    public Order(int orderId, User user, int width, int length, int height,
                  Integer shedWidth, Integer shedLength, String comment, Status status,
                  double costPrice, double salesPrice, LocalDateTime createdAt) {
         this.orderId = orderId;
-        this.userId = userId;
+        this.user = user;
         this.width = width;
         this.length = length;
         this.height = height;
@@ -35,9 +35,9 @@ public class Order {
     }
 
     // Used when the customer sends a new request (the database creates id and createdAt)
-    public Order(int userId, int width, int length, int height,
+    public Order(User user, int width, int length, int height,
                  Integer shedWidth, Integer shedLength, String comment) {
-        this.userId = userId;
+        this.user = user;
         this.width = width;
         this.length = length;
         this.height = height;
@@ -53,11 +53,8 @@ public class Order {
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
-    public int getUserId() {
-        return userId;
-    }
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public User getUser() {
+        return user;
     }
     public int getWidth() {
         return width;
