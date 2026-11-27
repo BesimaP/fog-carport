@@ -2,12 +2,19 @@ package app.persistence;
 
 import app.entities.Order;
 import app.exceptions.DatabaseException;
-
 import java.sql.*;
 
 public class OrderMapper {
 
-    public static Order createOrder(Order order, ConnectionPool connectionPool) throws DatabaseException {
+    private final ConnectionPool connectionPool;
+
+    // The connection pool is given from outside (dependency injection)
+    public OrderMapper(ConnectionPool connectionPool) {
+        this.connectionPool = connectionPool;
+    }
+    
+    // Saves a new order in the database and sets the generated id on the order
+    public Order createOrder(Order order) throws DatabaseException {
         String sql = "INSERT INTO orders (user_id, width, length, height, shed_width, shed_length, comment, status_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try(Connection connection = connectionPool.getConnection();
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
