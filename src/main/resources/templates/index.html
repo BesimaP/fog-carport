@@ -5,8 +5,34 @@
 
 <header th:replace="~{fragments/layout.html :: header}"></header>
 
+<header class="hero">
+    <div>
+        <h1>Byg din egen carport</h1>
+        <h3>Vælg dine mål. En sælger kontakter dig med et tilbud og en tegning</h3>
+
+    </div>
+</header>
+
 <main>
     <!-- Order form: build your own carport -->
+    <div class="order-layout">
+        <form class="card" action="/order" method="post">
+            <h2>Carport</h2>
+            <label for="width">Bredde (max 600cm)</label>
+            <select id="width" name="width">
+                <option th:each="width : ${widths}"
+                        th:value="${width}"
+                        th:text="${width} + ' cm'"
+                ></option>
+            </select>
+
+
+        </form>
+
+        <section class="card">
+            <h2>Forhåndsvisning</h2>
+        </section>
+    </div>
 </main>
 
 <footer th:replace="~{fragments/layout.html :: footer}"></footer>

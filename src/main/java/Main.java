@@ -1,4 +1,5 @@
 import app.configuration.ThymeleafConfig;
+import app.controllers.OrderController;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
@@ -16,7 +17,7 @@ public class Main {
             config.staticFiles.add("/public");
             config.fileRenderer(new JavalinThymeleaf(ThymeleafConfig.templateEngine()));
 
-            config.routes.get("/", ctx -> ctx.render("index.html"));
+            config.routes.get("/", ctx -> OrderController.showOrderForm(ctx));
 
 
 

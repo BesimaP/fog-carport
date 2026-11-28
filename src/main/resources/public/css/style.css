@@ -53,7 +53,6 @@ header nav a:hover {
 main {
     flex: 1;
     width: 100%;
-    max-width: 1100px;
     margin: 0 auto;
     padding: 32px;
 }
@@ -173,4 +172,30 @@ footer a {
         flex-direction: column;
         text-align: center;
     }
+
 }
+
+/* ===== Hero (den store blå bjælke øverst på siden) ===== */
+.hero h1,
+.hero h3 {
+    color: white;
+    margin: 0;
+}
+
+.order-layout{
+    display: grid;
+    grid-template-columns:1.2fr 1fr;
+    gap: 24px;
+}
+
+.card{
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.card h2{
+    margin-top: 0;
+}
+
