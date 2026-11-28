@@ -5,8 +5,146 @@
 
 <header th:replace="~{fragments/layout.html :: header}"></header>
 
+<header class="hero">
+    <div>
+        <h1>Byg din egen carport</h1>
+        <h3>Vælg dine mål. En sælger kontakter dig med et tilbud og en tegning</h3>
+
+    </div>
+</header>
+
 <main>
     <!-- Order form: build your own carport -->
+    <div class="order-layout">
+        <form class="card" action="/order" method="post">
+            <h2>Carport</h2>
+
+            <!-- Error message (only shown if the controller sets errorMessage) -->
+            <p class="error" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+
+            <!-- Width and length -->
+            <div class="form-row">
+                <div class="field">
+                    <label for="width">Bredde (max 600cm)</label>
+                    <select id="width" name="width">
+                        <option th:each="width : ${widths}"
+                                th:value="${width}"
+                                th:text="${width} + ' cm'"></option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="length">Længde (max 780cm)</label>
+                    <select id="length" name="length">
+                        <option th:each="length : ${lengths}"
+                                th:value="${length}"
+                                th:text="${length} + ' cm'"></option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Roof: only flat roof, so it is just text (not a choice) -->
+            <div class="field">
+                <label>Tag</label>
+                <p class="fixed-value">Fladt tag</p>
+            </div>
+
+            <!-- Roof material and height -->
+            <div class="form-row">
+                <div class="field">
+                    <label>Tagmateriale</label>
+                    <p class="fixed-value">Plasttrapezplader</p>
+                </div>
+                <div class="field">
+                    <label for="height">Højde</label>
+                    <!-- Only 4 options, so they are written directly in HTML -->
+                    <select id="height" name="height">
+                        <option value="210">210 cm</option>
+                        <option value="220">220 cm</option>
+                        <option value="230">230 cm</option>
+                        <option value="240">240 cm</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Shed: the fields are only used if the checkbox is checked -->
+            <label class="checkbox-label">
+                <input type="checkbox" name="hasShed" value="true">
+                Tilføj redskabsrum <span class="hint">(kræver højde min. 240 cm)</span>
+            </label>
+            <div class="form-row">
+                <div class="field">
+                    <label for="shedWidth">Bredde</label>
+                    <select id="shedWidth" name="shedWidth">
+                        <option th:each="shedWidth : ${shedWidths}"
+                                th:value="${shedWidth}"
+                                th:text="${shedWidth} + ' cm'"></option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="shedLength">Dybde</label>
+                    <select id="shedLength" name="shedLength">
+                        <option th:each="shedLength : ${shedLengths}"
+                                th:value="${shedLength}"
+                                th:text="${shedLength} + ' cm'"></option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Customer details -->
+            <h2 class="section-title">Dine oplysninger</h2>
+            <p class="hint">Har du allerede en bruger? Brug samme e-mail og adgangskode.</p>
+
+            <div class="field">
+                <label for="name">Navn</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="field">
+                <label for="address">Adresse</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+            <div class="form-row">
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="field">
+                    <label for="email2">Gentag e-mail</label>
+                    <input type="email" id="email2" name="email2" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="field">
+                    <label for="phone">Telefon</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="field">
+                    <label for="password">Adgangskode</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+            </div>
+            <div class="field">
+                <label for="comment">Bemærkning</label>
+                <textarea id="comment" name="comment" rows="3"></textarea>
+            </div>
+
+            <button type="submit" class="submit-button">Send forespørgsel</button>
+        </form>
+
+        <!-- Right box: drawing and info -->
+        <section class="card">
+            <h2>Forhåndsvisning</h2>
+
+            <!-- The SVG drawing will go here later (US-7) -->
+            <div class="drawing-placeholder">Tegningen kommer her</div>
+
+            <div class="info-box">
+                <strong>Sådan virker det</strong>
+                <p>Højde: vælg 210–240 cm. Med redskabsrum er min. 240 cm (døren er 210 cm + karm).</p>
+                <p>Midterstolper: programmet sætter selv ekstra stolper, hvis carporten er lang.</p>
+                <p>Taget falder 9 cm fra for til bag, så vandet kan løbe af.</p>
+            </div>
+        </section>
+    </div>
 </main>
 
 <footer th:replace="~{fragments/layout.html :: footer}"></footer>

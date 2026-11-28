@@ -53,7 +53,7 @@ header nav a:hover {
 main {
     flex: 1;
     width: 100%;
-    max-width: 1100px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 32px;
 }
@@ -173,4 +173,110 @@ footer a {
         flex-direction: column;
         text-align: center;
     }
+
+}
+
+/* ===== Hero (the big blue bar at the top of the page) ===== */
+.hero h1,
+.hero h3 {
+    color: white;
+    margin: 0;
+}
+
+.order-layout{
+    display: grid;
+    grid-template-columns:1.2fr 1fr;
+    gap: 24px;
+}
+
+.card{
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.card h2{
+    margin-top: 0;
+}
+
+/* Two form fields side by side (e.g. width and length) */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* Fields fill their whole column */
+.field select,
+.field input,
+.field textarea {
+    max-width: 100%;
+}
+
+/* A little space below each field */
+.field {
+    margin-bottom: 8px;
+}
+
+/* Grey help text */
+.hint {
+    color: #6b7280;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+/* Text that cannot be chosen (flat roof, roof material) */
+.fixed-value {
+    margin: 4px 0 0;
+    color: var(--fog-blue);
+    font-weight: bold;
+}
+
+/* Checkbox for the shed */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    font-size: 18px;
+}
+
+.checkbox-label input {
+    width: auto;
+    margin: 0;
+}
+
+/* Heading for "Dine oplysninger" */
+.card .section-title {
+    margin-top: 48px;
+    margin-bottom: 0;
+}
+
+/* The submit button fills the whole width */
+.submit-button {
+    width: 100%;
+    margin-top: 24px;
+}
+
+/* Placeholder for the SVG drawing */
+.drawing-placeholder {
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 48px;
+    text-align: center;
+    color: #6b7280;
+}
+
+/* Yellow box with "Sådan virker det" */
+.info-box {
+    background: #fdf6e3;
+    border-left: 4px solid var(--fog-yellow);
+    border-radius: 4px;
+    padding: 16px;
+    margin-top: 24px;
+}
+
+.info-box p {
+    margin: 8px 0 0;
 }
