@@ -1,5 +1,8 @@
 package app.controllers;
 
+import app.entities.Order;
+import app.entities.User;
+import app.exceptions.DatabaseException;
 import app.services.OrderService;
 import io.javalin.http.Context;
 
@@ -15,13 +18,14 @@ public class OrderController {
         this.orderService = orderService;
     }
 
+    // Shows the order form (GET /) with the lists of measurements for the dropdowns
     public void showOrderForm(Context ctx) {
         List<Integer> widths = new ArrayList<>();
         for (int width = 240; width <= 600; width += 10) {
             widths.add(width);
         }
         List<Integer> lengths = new ArrayList<>();
-        for(int length = 240; length <=780; length +=10){
+        for (int length = 240; length <= 780; length += 10) {
             lengths.add(length);
         }
 
@@ -44,7 +48,47 @@ public class OrderController {
 
     }
 
-    public void createOrder(Context ctx){
-        ctx.render("order-confirmation.html");
+    // Receives the form (POST /order), saves the customer and the order, and shows the confirmation
+    public void createOrder(Context ctx) {
+        // Read the measurements from the form (formParam gives a String, so we parse to int)
+        int width = Integer.parseInt(ctx.formParam("width"));
+        int length = Integer.parseInt(ctx.formParam("length"));
+        int height = Integer.parseInt(ctx.formParam("height"));
+
+        // Shed: only read the fields if the checkbox is checked (otherwise they stay null)
+        Integer shedWidth = null;
+        Integer shedLength = null;
+        if (ctx.formParam("hasShed") != null) {
+            shedWidth = Integer.parseInt(ctx.formParam("shedWidth"));
+            shedLength = Integer.parseInt(ctx.formParam("shedLength"));
+        }
+
+        // Read the customer details (text, so no parsing needed)
+        String name = ctx.formParam("name");
+        String address = ctx.formParam("address");
+        String email = ctx.formParam("email");
+        String email2 = ctx.formParam("email2");
+        String phone = ctx.formParam("phone");
+        String password = ctx.formParam("password");
+        String comment = ctx.formParam("comment");
+
+        // The two e-mails must be the same, otherwise show the form again with a message
+        if (!email.equals(email2)) {
+            ctx.attribute("errorMessage", "E-mailadresserne er ikke ens");
+            showOrderForm(ctx);
+            return;
+        }
+        User user = new User(name, email, phone, address, password);
+        Order order = new Order(user, width, length, height, shedWidth, shedLength, comment);
+        // Save the customer and the order in the database
+        try {
+            orderService.placeOrder(order);
+            ctx.render("order-confirmation.html");
+        } catch (DatabaseException e) {
+            // Something went wrong in the database, so show the error page
+            ctx.attribute("errorMessage", e.getMessage());
+            ctx.render("error.html");
+        }
+
     }
 }

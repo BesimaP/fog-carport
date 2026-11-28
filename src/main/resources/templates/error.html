@@ -6,7 +6,13 @@
 <header th:replace="~{fragments/layout.html :: header}"></header>
 
 <main>
-    <!-- Error page -->
+    <!-- Error page: shows the message that the controller put in errorMessage -->
+    <div class="card">
+        <h1>Der skete en fejl</h1>
+        <p class="error" th:text="${errorMessage}"></p>
+        <p>Prøv igen om lidt. Hvis det bliver ved med at fejle, så kontakt Fog.</p>
+        <a href="/">Tilbage til forsiden</a>
+    </div>
 </main>
 
 <footer th:replace="~{fragments/layout.html :: footer}"></footer>

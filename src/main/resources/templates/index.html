@@ -19,6 +19,9 @@
         <form class="card" action="/order" method="post">
             <h2>Carport</h2>
 
+            <!-- Error message (only shown if the controller sets errorMessage) -->
+            <p class="error" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+
             <!-- Width and length -->
             <div class="form-row">
                 <div class="field">
