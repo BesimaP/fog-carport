@@ -33,4 +33,22 @@
             }
             return user;
         }
+
+        public User getUserByEmail(String email, Connection connection) throws DatabaseException {
+            String sql = "SELECT * FROM users WHERE email = ?";
+            User user = null;
+
+            try(PreparedStatement ps = connection.prepareStatement(sql)){
+                ps.setString(1, email);
+                ResultSet rs = ps.executeQuery();
+
+                if(rs.next()){
+                    user = new User(rs.getInt("user_id"), rs.getString("name"),rs.getString("email"),rs.getString("phone_number"),rs.getString("address"),rs.getString("password_hash"), rs.getBoolean("is_admin"));
+                }
+
+            } catch (SQLException e){
+                throw new DatabaseException("Kunne ikke oprette bruger", e.getMessage());
+            }
+            return user;
+        }
     }
