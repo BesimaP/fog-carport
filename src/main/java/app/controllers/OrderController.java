@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.services.OrderService;
 import io.javalin.http.Context;
 
 import java.util.ArrayList;
@@ -7,7 +8,14 @@ import java.util.List;
 
 public class OrderController {
 
-    public static void showOrderForm(Context ctx) {
+    private final OrderService orderService;
+
+    // The service is given from outside (constructor injection), like in OrderService
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    public void showOrderForm(Context ctx) {
         List<Integer> widths = new ArrayList<>();
         for (int width = 240; width <= 600; width += 10) {
             widths.add(width);
@@ -17,7 +25,7 @@ public class OrderController {
             lengths.add(length);
         }
 
-        // Redskabsrum: bredde og dybde (grænserne skal aftales i gruppen)
+        // Shed: width and depth (the limits must be agreed in the group)
         List<Integer> shedWidths = new ArrayList<>();
         for (int shedWidth = 150; shedWidth <= 600; shedWidth += 10) {
             shedWidths.add(shedWidth);
@@ -34,5 +42,9 @@ public class OrderController {
         ctx.render("index.html");
 
 
+    }
+
+    public void createOrder(Context ctx){
+        ctx.render("order-confirmation.html");
     }
 }
