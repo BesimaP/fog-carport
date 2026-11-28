@@ -125,6 +125,13 @@ th {
     padding: 12px;
 }
 
+/* The field with an error gets a soft red frame (not screaming red) */
+.field input.field-error {
+    border-color: #e57373;
+    background: #fffafa;
+    box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.10);
+}
+
 /* ===== Footer ===== */
 footer {
     background: var(--fog-blue);

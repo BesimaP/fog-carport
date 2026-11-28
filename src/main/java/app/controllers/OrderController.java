@@ -75,6 +75,8 @@ public class OrderController {
         // The two e-mails must be the same, otherwise show the form again with a message
         if (!email.equals(email2)) {
             ctx.attribute("errorMessage", "E-mailadresserne er ikke ens");
+            ctx.attribute("errorField", "email");
+            keepFormValues(ctx);
             showOrderForm(ctx);
             return;
         }
@@ -85,10 +87,31 @@ public class OrderController {
             orderService.placeOrder(order,password);
             ctx.render("order-confirmation.html");
         } catch (DatabaseException e) {
-            // Something went wrong in the database, so show the error page
+            // Show the form again with the message, so the customer only has to fix the error
             ctx.attribute("errorMessage", e.getMessage());
-            ctx.render("error.html");
+            if (e.getMessage().equals("Forkert e-mail eller adgangskode")) {
+                ctx.attribute("errorField", "password");
+            }
+            keepFormValues(ctx);
+            showOrderForm(ctx);
         }
 
+    }
+
+    // Puts what the customer wrote back on the page, so the form is not empty after an error
+    // (the password is not put back, the customer types it again)
+    private void keepFormValues(Context ctx) {
+        ctx.attribute("selectedWidth", Integer.parseInt(ctx.formParam("width")));
+        ctx.attribute("selectedLength", Integer.parseInt(ctx.formParam("length")));
+        ctx.attribute("selectedHeight", Integer.parseInt(ctx.formParam("height")));
+        ctx.attribute("hasShed", ctx.formParam("hasShed") != null);
+        ctx.attribute("selectedShedWidth", Integer.parseInt(ctx.formParam("shedWidth")));
+        ctx.attribute("selectedShedLength", Integer.parseInt(ctx.formParam("shedLength")));
+        ctx.attribute("name", ctx.formParam("name"));
+        ctx.attribute("address", ctx.formParam("address"));
+        ctx.attribute("email", ctx.formParam("email"));
+        ctx.attribute("email2", ctx.formParam("email2"));
+        ctx.attribute("phone", ctx.formParam("phone"));
+        ctx.attribute("comment", ctx.formParam("comment"));
     }
 }
