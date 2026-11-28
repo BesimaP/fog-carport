@@ -78,11 +78,11 @@ public class OrderController {
             showOrderForm(ctx);
             return;
         }
-        User user = new User(name, email, phone, address, password);
+        User user = new User(name, email, phone, address, null);
         Order order = new Order(user, width, length, height, shedWidth, shedLength, comment);
         // Save the customer and the order in the database
         try {
-            orderService.placeOrder(order);
+            orderService.placeOrder(order,password);
             ctx.render("order-confirmation.html");
         } catch (DatabaseException e) {
             // Something went wrong in the database, so show the error page
