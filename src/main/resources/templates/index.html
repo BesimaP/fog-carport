@@ -18,19 +18,128 @@
     <div class="order-layout">
         <form class="card" action="/order" method="post">
             <h2>Carport</h2>
-            <label for="width">Bredde (max 600cm)</label>
-            <select id="width" name="width">
-                <option th:each="width : ${widths}"
-                        th:value="${width}"
-                        th:text="${width} + ' cm'"
-                ></option>
-            </select>
 
+            <!-- Bredde og længde -->
+            <div class="form-row">
+                <div class="field">
+                    <label for="width">Bredde (max 600cm)</label>
+                    <select id="width" name="width">
+                        <option th:each="width : ${widths}"
+                                th:value="${width}"
+                                th:text="${width} + ' cm'"></option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="length">Længde (max 780cm)</label>
+                    <select id="length" name="length">
+                        <option th:each="length : ${lengths}"
+                                th:value="${length}"
+                                th:text="${length} + ' cm'"></option>
+                    </select>
+                </div>
+            </div>
 
+            <!-- Tag: kun fladt tag, så det er bare tekst (ikke et valg) -->
+            <div class="field">
+                <label>Tag</label>
+                <p class="fixed-value">Fladt tag</p>
+            </div>
+
+            <!-- Tagmateriale og højde -->
+            <div class="form-row">
+                <div class="field">
+                    <label>Tagmateriale</label>
+                    <p class="fixed-value">Plasttrapezplader</p>
+                </div>
+                <div class="field">
+                    <label for="height">Højde</label>
+                    <!-- Kun 4 valg, så de står direkte i HTML -->
+                    <select id="height" name="height">
+                        <option value="210">210 cm</option>
+                        <option value="220">220 cm</option>
+                        <option value="230">230 cm</option>
+                        <option value="240">240 cm</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Redskabsrum: felterne bruges kun, hvis fluebenet er sat -->
+            <label class="checkbox-label">
+                <input type="checkbox" name="hasShed" value="true">
+                Tilføj redskabsrum <span class="hint">(kræver højde min. 240 cm)</span>
+            </label>
+            <div class="form-row">
+                <div class="field">
+                    <label for="shedWidth">Bredde</label>
+                    <select id="shedWidth" name="shedWidth">
+                        <option th:each="shedWidth : ${shedWidths}"
+                                th:value="${shedWidth}"
+                                th:text="${shedWidth} + ' cm'"></option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="shedLength">Dybde</label>
+                    <select id="shedLength" name="shedLength">
+                        <option th:each="shedLength : ${shedLengths}"
+                                th:value="${shedLength}"
+                                th:text="${shedLength} + ' cm'"></option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Kundens oplysninger -->
+            <h2 class="section-title">Dine oplysninger</h2>
+            <p class="hint">Har du allerede en bruger? Brug samme e-mail og adgangskode.</p>
+
+            <div class="field">
+                <label for="name">Navn</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="field">
+                <label for="address">Adresse</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+            <div class="form-row">
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="field">
+                    <label for="email2">Gentag e-mail</label>
+                    <input type="email" id="email2" name="email2" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="field">
+                    <label for="phone">Telefon</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="field">
+                    <label for="password">Adgangskode</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+            </div>
+            <div class="field">
+                <label for="comment">Bemærkning</label>
+                <textarea id="comment" name="comment" rows="3"></textarea>
+            </div>
+
+            <button type="submit" class="submit-button">Send forespørgsel</button>
         </form>
 
+        <!-- Højre boks: tegning og info -->
         <section class="card">
             <h2>Forhåndsvisning</h2>
+
+            <!-- Her kommer SVG-tegningen senere (US-7) -->
+            <div class="drawing-placeholder">Tegningen kommer her</div>
+
+            <div class="info-box">
+                <strong>Sådan virker det</strong>
+                <p>Højde: vælg 210–240 cm. Med redskabsrum er min. 240 cm (døren er 210 cm + karm).</p>
+                <p>Midterstolper: programmet sætter selv ekstra stolper, hvis carporten er lang.</p>
+                <p>Taget falder 9 cm fra for til bag, så vandet kan løbe af.</p>
+            </div>
         </section>
     </div>
 </main>

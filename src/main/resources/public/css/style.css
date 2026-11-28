@@ -199,3 +199,83 @@ footer a {
     margin-top: 0;
 }
 
+/* To formularfelter ved siden af hinanden (fx Bredde og Længde) */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* Felter fylder hele deres kolonne */
+.field select,
+.field input,
+.field textarea {
+    max-width: 100%;
+}
+
+/* Lidt luft under hvert felt */
+.field {
+    margin-bottom: 8px;
+}
+
+/* Grå forklaringstekst */
+.hint {
+    color: #6b7280;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+/* Tekst der ikke kan vælges (fladt tag, tagmateriale) */
+.fixed-value {
+    margin: 4px 0 0;
+    color: var(--fog-blue);
+    font-weight: bold;
+}
+
+/* Afkrydsningsfelt til redskabsrum */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    font-size: 18px;
+}
+
+.checkbox-label input {
+    width: auto;
+    margin: 0;
+}
+
+/* Overskrift til "Dine oplysninger" */
+.card .section-title {
+    margin-top: 48px;
+    margin-bottom: 0;
+}
+
+/* Send-knappen fylder hele bredden */
+.submit-button {
+    width: 100%;
+    margin-top: 24px;
+}
+
+/* Pladsholder til SVG-tegningen */
+.drawing-placeholder {
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 48px;
+    text-align: center;
+    color: #6b7280;
+}
+
+/* Gul boks med "Sådan virker det" */
+.info-box {
+    background: #fdf6e3;
+    border-left: 4px solid var(--fog-yellow);
+    border-radius: 4px;
+    padding: 16px;
+    margin-top: 24px;
+}
+
+.info-box p {
+    margin: 8px 0 0;
+}
