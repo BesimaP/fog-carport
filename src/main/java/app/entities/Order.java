@@ -53,6 +53,9 @@ public class Order {
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
+    public void setUser(User user) {
+        this.user = user;
+    }
     public User getUser() {
         return user;
     }

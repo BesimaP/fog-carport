@@ -37,6 +37,9 @@ public class User {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
     public String getName() {
         return name;
     }
